@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHYLOG Compiler Report</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        h1 {
+            text-align: center;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .authors {
+            text-align: center;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+        .section {
+            margin-bottom: 25px;
+        }
+        ul, ol {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .pipeline {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .pipeline-item {
+            flex: 1;
+            text-align: center;
+            background: #3498db;
+            color: white;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            min-width: 100px;
+            position: relative;
+        }
+        .pipeline-item:after {
+            content: "→";
+            position: absolute;
+            right: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #333;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        .pipeline-item:last-child:after {
+            content: "";
+        }
+    </style>
+</head>
+<body>
+    <h1>PHYLOG Compiler</h1>
+    <div class="authors">By Boumedine Billal and Tolbat Adel</div>
+
+    <div class="section">
+        <h2>What is PHYLOG?</h2>
+        <ul>
+            <li>A structured programming language with a clear program organization (DATA/CODE/END sections)</li>
+            <li>Supports multiple data types: INTEGER, FLOAT, CHAR, and STRING</li>
+            <li>Implements variables, constants, and arrays (VECTOR keyword)</li>
+            <li>Provides standard control structures: IF-ELSE, FOR, WHILE, with BREAK and CONTINUE</li>
+            <li>Includes logical operators (.AND., .OR., NOT) and comparison operators (.GE., .G., .L., .LE., .EQ., .DI.)</li>
+            <li>Features I/O operations through READ and DISPLAY statements</li>
+            <li>Designed for educational purposes to demonstrate compiler construction techniques</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Compiler Pipeline</h2>
+        <div class="pipeline">
+            <div class="pipeline-item">Lexical Analysis</div>
+            <div class="pipeline-item">Syntax Analysis</div>
+            <div class="pipeline-item">Semantic Analysis</div>
+            <div class="pipeline-item">IR Generation</div>
+            <div class="pipeline-item">Optimization</div>
+            <div class="pipeline-item">Code Generation</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Compiler Features</h2>
+        <ol>
+            <li><strong>Modular Design</strong> - Separate components for lexical analysis, parsing, optimization, and code generation</li>
+            <li><strong>Robust Error Handling</strong> - Detailed error messages with line and column information</li>
+            <li><strong>Type System</strong> - Static type checking with implicit conversions between compatible types</li>
+            <li><strong>Array Support</strong> - Arrays with bounds checking and arbitrary lower bounds</li>
+            <li><strong>Symbol Management</strong> - Efficient symbol table with categorization (variables, constants, arrays)</li>
+            <li><strong>Optimization</strong> - Multiple optimization passes for improved code efficiency</li>
+            <li><strong>Intermediate Representation</strong> - Uses quadruples as IR for platform independence</li>
+            <li><strong>Assembly Output</strong> - Generates x86 16-bit assembly code</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <h2>Symbol Table Implementation</h2>
+        <ul>
+            <li>Uses a hash table (size 211) with linked lists for collision resolution</li>
+            <li>Hash function multiplies each character by 31 for better distribution</li>
+            <li>Stores all symbol information including name, type, category, and initialization status</li>
+            <li>Supports four symbol categories: VARIABLE, CONSTANT, ARRAY, and TEMP</li>
+            <li>Provides lookup, insertion, and deletion operations with O(1) average case complexity</li>
+            <li>Tracks source code location (line, column) for better error reporting</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Semantic Errors Detection</h2>
+        <ul>
+            <li>Redefinition of symbols (variables, constants)</li>
+            <li>Type mismatches in expressions and assignments</li>
+            <li>Array access with non-integer indices</li>
+            <li>Array bounds violations (when detected at compile time)</li>
+            <li>Use of uninitialized variables</li>
+            <li>Attempting to modify constants</li>
+            <li>Type incompatibility in conditions and logical operations</li>
+            <li>Format specifier mismatch in I/O operations</li>
+            <li>Invalid array declarations (negative or zero size)</li>
+            <li>Array access on non-array variables</li>
+            <li>Undefined variables or arrays in expressions</li>
+            <li>Invalid index expressions in array access</li>
+            <li>Incompatible operand types for arithmetic operations</li>
+            <li>Modulo operation with non-integer operands</li>
+            <li>Division or modulo by zero (when detectable at compile time)</li>
+            <li>Constants used in invalid contexts (e.g., as loop counters)</li>
+            <li>Invalid operands for logical operators</li>
+            <li>Unreachable code detection</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Optimization Passes</h2>
+        <table>
+            <tr>
+                <th>Pass</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>Copy Propagation</td>
+                <td>Replaces variable occurrences with their values, reducing variable usage and memory access</td>
+            </tr>
+            <tr>
+                <td>Constant Folding</td>
+                <td>Evaluates constant expressions at compile time, eliminating runtime calculations</td>
+            </tr>
+            <tr>
+                <td>Constant Propagation</td>
+                <td>Propagates known constant values to their uses, enabling further optimizations</td>
+            </tr>
+            <tr>
+                <td>Common Subexpression Elimination</td>
+                <td>Identifies and removes redundant computations, reusing previously calculated results</td>
+            </tr>
+            <tr>
+                <td>Algebraic Simplification</td>
+                <td>Applies algebraic rules to simplify expressions (x+0=x, x*1=x, etc.)</td>
+            </tr>
+            <tr>
+                <td>Dead Code Elimination</td>
+                <td>Removes code that computes values never used, reducing program size</td>
+            </tr>
+            <tr>
+                <td>Code Compaction</td>
+                <td>Removes NOP instructions and reindexes quadruples, reducing code size</td>
+            </tr>
+            <tr>
+                <td>Unused Variable Cleanup</td>
+                <td>Removes variables that are never used in the final IR, optimizing memory usage</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Code Generation Quality</h2>
+        <ul>
+            <li><strong>Efficient Register Usage</strong> - Makes good use of the x86 register set (AX, BX, CX, DX)</li>
+            <li><strong>Effective Array Handling</strong> - Implements array access with appropriate indexing and bounds checking</li>
+            <li><strong>Clean Control Flow</strong> - Clear implementation of branching and loops with well-structured jumps</li>
+            <li><strong>I/O Operations</strong> - Uses hooks for input/output operations for compatibility with simulation environments</li>
+            <li><strong>Memory Organization</strong> - Clear separation of data and code sections with appropriate variable declarations</li>
+            <li><strong>Good Commenting</strong> - Generated assembly includes comments linking back to the original IR</li>
+            <li><strong>Compatible Output</strong> - Generates 16-bit x86 assembly suitable for educational purposes</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Additional Highlights</h2>
+        <ul>
+            <li><strong>Error Recovery</strong> - Continues compilation after errors for more comprehensive error reporting</li>
+            <li><strong>Type Conversion</strong> - Handles implicit and explicit type conversions with appropriate code generation</li>
+            <li><strong>Backpatching</strong> - Uses backpatching for forward references in control structures</li>
+            <li><strong>Statistics</strong> - Provides detailed optimization statistics to evaluate effectiveness</li>
+            <li><strong>Modular Testing</strong> - Supports running individual optimization passes for testing and analysis</li>
+        </ul>
+    </div>
+</body>
+</html>

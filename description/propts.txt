@@ -1,0 +1,58 @@
+
+
+# prompt1
+
+
+i have the full project , but is sow complexe because i dont do it in incrementaly way,
+now i want to do it part by part , each part must be work correctly before passing to the next part,
+sow each part must be generate an output to passe it to the next part ,
+sow the parts never collaps and when we face a problem we fixe only one part, 
+because this we will creat many files in each step for testing , and i dont want the finale project to be 
+complexe , and contain many files sow the part files must writed normaly and the test files must be 
+writed in a test_partx folder 
+the will be created in /home/bilel/bilel/mivs2/finale_compilev1
+i creat the folder sow dont creat it again because its include a desciption folder, you dont interested by it,
+
+
+/home/bilel/bilel/mivs2/compile_projectv4/src/common.c
+/home/bilel/bilel/mivs2/compile_projectv4/src/lexer.l
+/home/bilel/bilel/mivs2/compile_projectv4/src/parser.y
+/home/bilel/bilel/mivs2/compile_projectv4/src/symboltable.c
+/home/bilel/bilel/mivs2/compile_projectv4/src/quadgen.c
+
+
+
+# propt2
+
+
+i have the full project , but is sow complexe because i dont do it in incrementaly way,
+now i want to do it part by part , each part must be work correctly before passing to the next part,
+sow each part must be generate an output to passe it to the next part ,
+sow the parts never collaps and when we face a problem we fixe only one part, 
+because this we will creat many files in each step for testing , and i dont want the finale project to be 
+complexe , and contain many files sow the part files must writed normaly and the test files must be 
+writed in a test_partx folder 
+the will be created in /home/bilel/bilel/mivs2/finale_compilev1
+i creat the folder sow dont creat it again because its include a desciption folder, you dont interested by it,
+
+first i want to recreat 
+
+/home/bilel/bilel/mivs2/compile_projectv4/src/common.c
+/home/bilel/bilel/mivs2/compile_projectv4/src/lexer.l
+/home/bilel/bilel/mivs2/compile_projectv4/src/parser.y
+/home/bilel/bilel/mivs2/compile_projectv4/src/symboltable.c
+/home/bilel/bilel/mivs2/compile_projectv4/src/quadgen.c
+
+in our new project
+very importatn note: you can read those files and the files related to those files only dont read like the optimization.
+
+and hear what you will change: 
+in the parser.y i dont want any logical c code , all must be with external function calls where we can .
+
+i want to make parser.y smaller
+the result of this step is not optimazed ir with the symbole table saved in csv file or a way that make it simpler to load in the next step
+
+write the build file that we will modify it each time and write test commands file that test the step with /home/bilel/bilel/mivs2/compile_projectv4/test_full1/sort_array.phy
+
+as i saw the test for this step must be in test_partx folder that include the .sh file the test file and the outputs
+start now
