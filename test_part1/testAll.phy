@@ -1,0 +1,167 @@
+TestAll
+DATA
+§ This program tests all PHYLOG language features
+§ Constants of different types
+CONST: ZERO = 0;
+CONST: ONE = 1;
+CONST: TWO = 2;
+CONST: THREE = 3;
+CONST: FIVE = 5;
+CONST: TEN = 10;
+CONST: PI = 3.14;
+CONST: HELLO = "Hello";
+CONST: FIRST = 'A';
+
+§ Variable declarations of all types
+INTEGER: N | I | J | COUNT | SUM | AGE;
+FLOAT: X | Y | RESULT | PRICE;
+CHAR: C1 | C2 | LETTER | CHOICE;
+STRING: MESSAGE | NAME | TEXT | INPUT;
+
+§ Array declarations
+VECTOR: INT_ARRAY [1, 10: INTEGER];
+VECTOR: FLOAT_ARRAY [0, 5: FLOAT];
+VECTOR: CHAR_ARRAY [5, 26: CHAR];
+END
+
+CODE
+§ Initialize variables of different types
+N = 10;
+X = 5.5;
+C1 = 'X';
+MESSAGE = "Testing";
+
+§ Test READ operations with proper format specifiers
+DISPLAY("Enter an integer $": ZERO);
+READ("$": @AGE);
+
+DISPLAY("Enter a float $": ZERO);
+READ("%": @PRICE);
+
+DISPLAY("Enter a character $": ZERO);
+READ("&": @CHOICE);
+
+DISPLAY("Enter a string $": ZERO);
+READ("#": @INPUT);
+
+§ Test DISPLAY operations with proper format specifiers
+DISPLAY("Age entered is $": AGE);
+DISPLAY("Price entered is %": PRICE);
+DISPLAY("Character entered is &": CHOICE);
+DISPLAY("String entered is #": INPUT);
+
+§ Test arithmetic operations and operator precedence
+RESULT = (N + ONE) * (TWO + PI) / 2;
+RESULT = RESULT - ONE;
+RESULT = RESULT * TWO;
+RESULT = ONE + TWO * THREE;  § Tests operator precedence
+
+§ Test array operations with different indexing
+I = ONE;
+FOR (I: ONE: I.LE.N)
+    INT_ARRAY[I] = I * TWO;
+    
+    § Test 0-based indexing if allowed by array declaration
+    IF(I.G.ONE):
+        FLOAT_ARRAY[I-ONE] = I / TWO;
+    END
+END
+
+§ Test conditional statements
+IF(N.G.FIVE):
+    MESSAGE = "Greater";
+    COUNT = ONE;
+ELSE:
+    MESSAGE = "Less or Equal";
+    COUNT = ZERO;
+END
+
+§ Test nested conditional statements
+IF(X.G.5.0):
+    IF(N.EQ.TEN):
+        MESSAGE = "Both true";
+    ELSE:
+        MESSAGE = "Only X > 5";
+    END
+ELSE:
+    MESSAGE = "X <= 5";
+END
+
+§ Test logical operators in conditions
+IF((X.G.5.0).AND.(N.L.20)):
+    COUNT = COUNT + ONE;
+END
+
+IF((X.L.0.0).OR.(N.G.FIVE)):
+    COUNT = COUNT + ONE;
+END
+
+IF(NOT(N.EQ.ZERO)):
+    COUNT = COUNT + ONE;
+END
+
+§ Test loop with calculation
+SUM = ZERO;
+FOR(J: ONE: J.LE.N)
+    SUM = SUM + J;
+END
+
+§ Test nested loops
+FOR(I: ONE: I.LE.FIVE)
+    FOR(J: ONE: J.LE.I)
+        COUNT = COUNT + ONE;
+    END
+END
+
+§ Test array access in expressions
+I = TWO;
+J = THREE;
+SUM = INT_ARRAY[I] + INT_ARRAY[J];
+
+§ Test all comparison operators
+IF(I.G.J):
+    COUNT = ONE;
+ELSE:
+    COUNT = ZERO;
+END
+
+IF(I.L.J):
+    COUNT = COUNT + ONE;
+END
+
+IF(I.GE.J):
+    COUNT = COUNT + ONE;
+END
+
+IF(I.LE.J):
+    COUNT = COUNT + ONE;
+END
+
+IF(I.EQ.J):
+    COUNT = COUNT + ONE;
+END
+
+IF(I.DI.J):
+    COUNT = COUNT + ONE;
+END
+
+§ Test I/O operations with proper format specifiers
+DISPLAY("Value of N is $": N);
+DISPLAY("Value of X is %": X);
+DISPLAY("Value of C1 is &": C1);
+DISPLAY("Message is #": MESSAGE);
+DISPLAY("Sum of 1 to N is $": SUM);
+
+§ Test multiple assignments in sequence
+I = ONE;
+I = I + ONE;
+I = I + ONE;
+I = I + ONE;
+
+§ Test type compatibility
+X = N;  § INTEGER to FLOAT
+COUNT = N;  § INTEGER to INTEGER
+§ LETTER = N;  § This would be a type error, so it's commented out
+
+END
+END

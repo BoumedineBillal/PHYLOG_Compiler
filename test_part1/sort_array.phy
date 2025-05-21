@@ -1,0 +1,93 @@
+SortArray
+DATA
+§ Program to sort an array of integers using bubble sort
+§ This program is designed to showcase compiler optimizations
+
+§ Define constants for optimization demonstration
+CONST: ZERO = 0;
+CONST: ONE = 1;
+CONST: TWO = 2;
+CONST: TEN = 10;
+ 
+FLOAT: f1;
+CHAR: C;
+STRING: S;
+
+§ Variables declaration
+INTEGER: N | I | J | TEMP | SWAPCOUNT;
+INTEGER: MINARRAYSIZE | MAXARRAYSIZE;
+VECTOR: NUMBERS [1, 100: INTEGER];  § Array to store the numbers
+END
+
+CODE
+§ Initialize constants for array bounds (for constant folding and propagation)
+MINARRAYSIZE = ONE;
+MAXARRAYSIZE = 100;
+
+§ Set default value of N (for testing without input)
+READ("$":@N);
+
+§ Validate input size (will create branches for optimization)
+IF(N.L.MINARRAYSIZE):
+    N = MINARRAYSIZE;  § Common subexpression - MINARRAYSIZE used multiple times
+ELSE:
+    MINARRAYSIZE = MINARRAYSIZE + 0;
+END
+
+IF(N.G.MAXARRAYSIZE):
+    N = MAXARRAYSIZE;  § Opportunity for copy propagation
+END
+
+§ Initialize the array with some values (for testing)
+§ This generates code with many opportunities for optimization
+FOR (I: ONE: I.LE.N)
+    § The following expressions can be constant-folded
+    NUMBERS[I] = (N + ONE - I) * TWO;
+END
+
+§ Display the unsorted array
+DISPLAY("Unsorted array:":ZERO);
+FOR (I: ONE: I.LE.N)
+    DISPLAY("NUMBERS[":I);
+    DISPLAY("] = ":NUMBERS[I]);
+END
+
+§ Initialize variables for sorting
+SWAPCOUNT = ZERO;  § Opportunity for copy propagation
+
+§ Sort the array using bubble sort algorithm
+§ This generates code with opportunities for common subexpression elimination
+FOR (I: ONE: I.L.N)
+    FOR (J: ONE: J.LE.(N-I))
+        § Check if adjacent elements are in wrong order
+        IF(NUMBERS[J].G.NUMBERS[J+ONE]):
+            § Swap the elements
+            TEMP = NUMBERS[J];  § The array access expression can be optimized
+            NUMBERS[J] = NUMBERS[J+ONE];
+            NUMBERS[J+ONE] = TEMP;
+            
+            § Count swaps (will be eliminated by dead code elimination if unused)
+            SWAPCOUNT = SWAPCOUNT + ONE;
+        END
+    END
+END
+
+§ Display the sorted array
+DISPLAY("Sorted array:":ZERO);
+FOR (I: ONE: I.LE.N)
+    DISPLAY("NUMBERS[":I);
+    DISPLAY("] = ":NUMBERS[I]);
+END
+
+§ Display statistics (uses SWAPCOUNT to prevent it from being eliminated)
+DISPLAY("Number of swaps: ":SWAPCOUNT);
+
+§ Algebraic simplification examples
+TEMP = TEMP + ZERO;  § x + 0 = x
+TEMP = TEMP * ONE;   § x * 1 = x
+TEMP = ONE * TEMP;   § 1 * x = x
+TEMP = TEMP - ZERO;  § x - 0 = x
+TEMP = TEMP / ONE;   § x / 1 = x
+
+END
+END
