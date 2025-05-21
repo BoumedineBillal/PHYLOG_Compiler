@@ -214,7 +214,6 @@ statement:
     | io_statement { $$ = $1; }
     | if_statement { $$ = NULL; }
     | loop_statement { $$ = NULL; }
-    | jump_statement { $$ = NULL; }
     | SEMICOLON  { $$ = ""; } /* Empty statement */
     ;
 
@@ -386,7 +385,6 @@ optional_else:
 
 loop_statement:
     for_statement { $$ = $1; }
-    | while_statement { $$ = $1; }
     ;
 
 for_statement:
@@ -414,16 +412,6 @@ while_statement:
     }
     ;
 
-jump_statement:
-    BREAK SEMICOLON {
-        process_jump_statement("BREAK");
-        $$ = NULL;
-    }
-    | CONTINUE SEMICOLON {
-        process_jump_statement("CONTINUE");
-        $$ = NULL;
-    }
-    ;
 
 io_statement:
     display_statement { $$ = $1; }
