@@ -1,6 +1,6 @@
 # PHYLOG Compiler
 
-![Compiler Pipline](PHYLOG_Compiler/cp.png)
+![Compiler Pipline](cp.png)
 
 A modular, incremental compiler implementation for the PHYLOG structured programming language, developed as a project for a Master's Degree in Machine Learning and Computer Vision at USTHB.
 
