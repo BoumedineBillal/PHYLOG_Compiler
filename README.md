@@ -2,7 +2,13 @@
 
 This project implements a compiler for the PHYLOG language in an incremental, modular approach. Each part builds on the previous one, with clean interfaces between components.
 
-
+- **Year:** Master Degree in Machine Learning and Computer Vision
+- **University:** USTHB
+- **Students:**
+  - Boumedine Billal (181837068863)
+  - Tolbat Adel (212131030403)
+ 
+  - 
 ## Building the Project
 
 To build the compiler:
